@@ -1,5 +1,18 @@
-version: '2'
-# NOTE: move this answer file up a directory so it'll work
+# Drupal with PostgreSQL
+# Created for image that builds only the docker image
+# of Drupal.
+#
+# Access via "http://localhost:8080"
+#   (or "http://$(docker-machine ip):8080" if using docker-machine)
+#
+# During initial Drupal setup,
+# Database type: PostgreSQL
+# Database name: postgres
+# Database username: postgres
+# Database password: example
+# ADVANCED OPTIONS; Database host: postgres
+
+version: '3.1'
 
 services:
 
@@ -7,7 +20,7 @@ services:
     container_name: drupal
     image: custom-drupal
     ports:
-      - "8080:80"
+      - 8080:80
     volumes:
       # this takes advantage of the feature in Docker that a new anonymous
       # volume (which is what we're creating here) will be initialized with the
@@ -16,18 +29,17 @@ services:
       - drupal-profiles:/var/www/html/profiles
       - drupal-themes:/var/www/html/themes
       - drupal-sites:/var/www/html/sites
- 
+    restart: always
+
   postgres:
-    container_name: postgres
-    image: postgres:9.6
+    image: postgres:10
     environment:
-      - POSTGRES_PASSWORD=mypasswd
-    volumes:
-      - drupal-data:/var/lib/postgresql/data
+      POSTGRES_PASSWORD: example
+    restart: always
 
 volumes:
-  drupal-data:
+
   drupal-modules:
   drupal-profiles:
-  drupal-sites:
   drupal-themes:
+  drupal-sites:

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="author" content="Esteban Marin"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3.8.0/css/reveal.css"/>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3.8.0/css/theme/black.css" id="theme"/>
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'https://cdn.jsdelivr.net/npm/reveal.js@3.8.0/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide">
+<h2 class="author">Esteban Marin</h2><p class="date">Created: 2020-01-09 Thu 17:56</p>
+</section>
+<section id="table-of-contents-section">
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#/slide-1">1. The notes of Docker</a></li>
+<li><a href="#/slide-2">2. Section 8</a>
+<ul>
+<li><a href="#/slide-2-1">2.1. Overlay Multihost Networking</a>
+<ul>
+<li><a href="#/slide-2-1-1">2.1.1. Create a network</a></li>
+<li><a href="#/slide-2-1-2">2.1.2. Create a postgres service called psql</a></li>
+<li><a href="#/slide-2-1-3">2.1.3. Crate a drupal service</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</section>
+<section>
+<section id="slide-1">
+<h2 id="1"><span class="section-number-2">1</span> The notes of Docker</h2>
+<p>
+This is very interesting - Note taken on <span class="timestamp-wrapper"><span class="timestamp">[2020-01-04 Sat 20:04] </span></span> <br />
+ Mmm I can add notes over a text
+</p>
+<aside class="notes">
+<p>
+
+</p>
+
+</aside>
+</section>
+</section>
+<section>
+<section id="slide-2">
+<h2 id="2"><span class="section-number-2">2</span> Section 8</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+</section>
+<section id="slide-2-1">
+<h3 id="2-1"><span class="section-number-3">2.1</span> Overlay Multihost Networking</h3>
+<div class="outline-text-3" id="text-2-1">
+</div>
+</section>
+<section id="slide-2-1-1">
+<h4 id="2-1-1"><span class="section-number-4">2.1.1</span> Create a network</h4>
+<div class="org-center">
+<p>
+docker network create &#x2013;driver overlay mydrupal
+</p>
+</div>
+<p>
+This should lead to something like some like so:
+</p>
+<pre class="example">
+╰─$ docker network ls                                                                                                                                                                                                                   
+NETWORK ID          NAME                DRIVER              SCOPE
+9607413c6e2d        docker_gwbridge     bridge              local
+9efu12nons6t        ingress             overlay             swarm
+a2n9knsfmj61        mydrupal            overlay             swarm
+</pre>
+<p>
+Notice the <code>overlay</code> driver
+</p>
+</section>
+<section id="slide-2-1-2">
+<h4 id="2-1-2"><span class="section-number-4">2.1.2</span> Create a postgres service called psql</h4>
+<pre class="example">
+╰─$ docker service ls                                                                                                                                                                                                                   
+ID                  NAME                MODE                REPLICAS            IMAGE               PORTS
+luqhpaqeja10        psql                replicated          1/1                 postgres:latest     
+</pre>
+</section>
+<section id="slide-2-1-3">
+<h4 id="2-1-3"><span class="section-number-4">2.1.3</span> Crate a drupal service</h4>
+<pre class="example">
+docker service create --name drupal -p 80:80 --network mydrupal drupal
+</pre>
+</section>
+</section>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@3.8.0/lib/js/head.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@3.8.0/js/reveal.js"></script>
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: false,
+center: true,
+slideNumber: 'c',
+rollingLinks: false,
+keyboard: true,
+mouseWheel: false,
+fragmentInURL: false,
+hashOneBasedIndex: false,
+pdfSeparateFragments: true,
+
+overview: true,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'convex', // see README of reveal.js for options
+transitionSpeed: 'default',
+
+// Optional libraries used to extend reveal.js
+dependencies: [
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.8.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.8.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.8.0/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.8.0/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.8.0/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } }]
+
+});
+</script>
+</body>
+</html>

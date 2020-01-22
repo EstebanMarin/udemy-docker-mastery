@@ -1,0 +1,32 @@
+* This is a first note with org mode
+  
+** This is another
+   This is another
+   - This is another
+   - This is another bullet
+     of course I can add more information here too
+    
+   Lets try another list but this time with numbers
+   1. Another one
+   2. Another 3
+   3. four
+   4. Numbered
+** Tables
+   | This a new extended column | This in incredible I can add a lot | Nice i | Col4 |
+   |----------------------------+------------------------------------+--------+------|
+   | nice Cool txt              | that can come from anohter         | x      | x    |
+*** Tasks
+**** DONE This is a task that I need to finish
+     CLOSED: [2019-12-29 Sun 12:03]
+**** DONE ready
+     CLOSED: [2019-12-29 Sun 11:51]
+**** DONE This is a main one [4/4] [100%]
+     CLOSED: [2020-01-04 Sat 20:39] DEADLINE: <2019-12-31 Tue>
+     + [X] Subtask 1
+     + [X] Subtask 2
+     + [X] Subtask 3
+     + [X] Subtask 4
+
+* Bibliography
+  Here [[https://www.youtube.com/watch?v=S4f-GUxu3CY][youtube]]
+

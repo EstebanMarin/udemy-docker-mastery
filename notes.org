@@ -1,0 +1,243 @@
+#tree macs-lock-width t+REVEAL_ROOT: https://cdn.jsdelivr.net/npm/reveal.js@3.8.0
+* Why Study Docker?
+  :PROPERTIES:
+  :ID:       1BC71C7F-A277-4E59-B7B9-1B07C9C48F8B
+  :END:
+   When ever I study something, I try to ask the following question: Why?
+   Docker began as a open source project from a hosting company called ~dotcloud~, that pivoted to Docker Inc.
+   Docker is valuable in the fact that is leading an industry shift, moving away from managing servers, to containerazing your applications and deploying faster.
+   The closer the developer is to the infrastructure, the faster quality product gets released.
+   Not shifting to Docker will deprecate you as a developer, as cloud native app will be the standard in the web.
+   It will also give you a bost in your career. 
+   #+begin_quote
+   Docker is all about speed.
+   Develop faster.
+   Test faster.
+   Deploy faster.
+   Update faster.
+   Recover faster.
+   #+end_quote
+   Docker reduces the complexity of managinig an application through several servers, operating systems, versions, ensuring consistency throughtout. 
+   Why: Because it allows you to package, regardless of the system, it allows you to distribute regardless of the channel, it allows you to test and debug the same way everyone else does.
+   
+* Docker Images                                                      :Docker:
+** What is in this section? 
+*** DONE check version of our Docker CLI and Engine                
+    CLOSED: [2020-01-21 Tue 17:35]
+    When running the following commands in the bash terminal:
+    #+BEGIN_SRC shell
+    docker version
+    #+END_SRC
+    You should get similar results:
+    #+begin_export markdown
+    ╰─$ docker version                                                                        
+    Client: Docker Engine - Community
+    Version:           19.03.5
+    API version:       1.40
+    Go version:        go1.12.12
+    Git commit:        633a0ea
+    Built:             Wed Nov 13 07:22:34 2019
+    OS/Arch:           darwin/amd64
+    Experimental:      false
+
+    Server: Docker Engine - Community
+    Engine:
+      Version:          19.03.5
+      API version:      1.40 (minimum version 1.12)
+      Go version:       go1.12.12
+      Git commit:       633a0ea
+      Built:            Wed Nov 13 07:29:19 2019
+      OS/Arch:          linux/amd64
+      Experimental:     false
+    containerd:
+      Version:          v1.2.10
+      GitCommit:        b34a5c8af56e510852c35414db4c1f4fa6172339
+    runc:
+      Version:          1.0.0-rc8+dev
+      GitCommit:        3e425f80a8c931f88e6d94a8c831b9d5aa481657
+    docker-init:
+      Version:          0.18.0
+      GitCommit:        fec3683
+    #+end_export
+    A lot of the information here is going to contain like number of containers
+    #+begin_example
+    ..//
+    Version:           19.03.5
+    ..//
+    Server: Docker Engine - Community
+    Engine:
+      Version:          19.03.5
+    ..//
+    #+end_example
+    At this point, this information useless, so lets move to other more insightful, you might wonder how many commands you have in Docker, well that can be queried fairly simple by typing:
+    #+begin_example
+    docker help
+    #+end_example
+    Immediately you get the format of the command:
+    #+begin_example
+    Usage:  docker [OPTIONS] COMMAND
+    #+end_example
+    See some interesting ~COMMAND~ 
+    #+begin_example
+    Management Commands:
+      builder     Manage builds
+      config      Manage Docker configs
+      container   Manage containers
+      context     Manage contexts
+      image       Manage images
+      network     Manage networks
+      node        Manage Swarm nodes
+      plugin      Manage plugins
+      secret      Manage Docker secrets
+      service     Manage services
+      stack       Manage Docker stacks
+      swarm       Manage Swarm
+      system      Manage Docker
+      trust       Manage trust on Docker images
+      volume      Manage volumes
+    #+end_example
+    With time you won't need to memorise the code, as you can query the help and go to the concept you are trying to build, and that is beautiful!
+    Also, take into account that there are new way of running old commands, and you can run them either without worrying as Docker ensures backwards compatibility.
+    #+begin_example bash
+    docker container run
+    docker run
+    #+end_example
+    As well the following produce the same results:
+    - docker container ls
+    - docker ps
+*** TODO create Nginx (web server) container
+    Lest review the difference between Images and Containers
+    | images                                     | containers                                           |
+    |--------------------------------------------+------------------------------------------------------|
+    | An Image is the application we want to run | It is a running instance of the image                |
+    | We our images from registries (DockerHub)  | You can have many containers based on the same image |
+**** Creating and managing containers 
+     Here we will run the first command:
+     #+BEGIN_SRC shell
+       docker container run --publish 80:80 nginx
+     #+END_SRC
+     #+begin_export 
+     ╰─$ docker container run --publish 80:80 nginx                                 
+     Unable to find image 'nginx:latest' locally
+     latest: Pulling from library/nginx
+     8ec398bc0356: Already exists 
+     dfb2a46f8c2c: Pull complete 
+     b65031b6a2a5: Pull complete 
+     Digest: sha256:8aa7f6a9585d908a63e5e418dc5d14ae7467d2e36e1ab4f0d8f9d059a3d071ce
+     Status: Downloaded newer image for nginx:latest
+     #+end_export
+     Now go into your browser and type ~localhost~. You will see a nginx welcome screen.
+     Lets dissect the docker command 
+     | Command      | Description                                             |
+     |--------------+---------------------------------------------------------|
+     | docker       | A self-sufficient runtime for containers                |
+     | container    | Manage containers                                       |
+     | run          | docker container run [OPTIONS] IMAGE [COMMAND] [ARG...] |
+     |--------------+---------------------------------------------------------|
+     | Flag         | Description                                             |
+     |--------------+---------------------------------------------------------|
+     | --publish    | Publish a container's port(s) to ythe host              |
+     |--------------+---------------------------------------------------------|
+     | Image        | Description                                             |
+     |--------------+---------------------------------------------------------|
+     | nginx:latest | Later version of official repo image with TAG:Latest    |
+     The step by step process that happened:
+     1. Downloaded the image nginx:latest from Docker Hub
+     2. Started a new container from that image
+     3. Opened port:80 on local host to application
+     4. Routes that traffic to the container IP, port 80[fn:1]
+     Lets now run the past command but with the detached flag like so:
+     #+BEGIN_SRC shell
+       docker container run --publish 80:80 --detach nginx
+     #+END_SRC
+     This will throw a hashed number that when running
+     #+BEGIN_SRC shell
+       docker container ls
+     #+END_SRC
+     Will show the container running, in this case:
+    | Id           | Image | Command                |      Ports | Names                  |
+    |--------------+-------+------------------------+------------+------------------------|
+    | 671c3cc2e55b | nginx | "nginx -g 'daemon of…" | 0.0.0.0:80 | hardcore_chandrasekhar |
+    Remember that you can stop by
+     #+BEGIN_SRC shell
+       docker container stop 671c3cc2e55b
+     #+END_SRC
+     This case we needed the hash, we could also refer to the name, but by default is given randomly. However, we can change the name with the name flag
+     #+BEGIN_SRC shell
+       docker container run --publish 80:80 --detach --name=webhost nginx
+     #+END_SRC
+    Once the container is up you can type 
+     #+BEGIN_SRC shell
+       docker container logs webhost
+     #+END_SRC
+     if the logs are empty, run a couple of refresh in localhost and then run the command above to she the logs.
+     As well you can check what processes are running within your container, very useful for debugging.
+     #+begin_export 
+     ╰─$ docker container top webhost                                                                                                                1 ↵
+     PID                 USER                TIME                COMMAND
+     69090               root                0:00                nginx: master process nginx -g daemon off;
+     69130               101                 0:00                nginx: worker process
+     #+end_export
+     You can notice now that we have cluttered our environment with several container so lets run remove command 
+     #+BEGIN_SRC shell
+       docker container rm -f webhost
+     #+END_SRC
+     We are running the ~f~ flag in case the container is running.
+**** Changing defaults
+    | Command default | Change            | Description                   |
+    |-----------------+-------------------+-------------------------------|
+    | --publish 80:80 | --publish 8080:80 | Changes host listening port   |
+    | nginx:latest    | nginx:1.1         | Changes latest version to 1.1 |
+    | nginx:latest    | nginx:latest -T   | Change CMD on start           |
+*** TODO Learn Docker networking basis
+*** requirements
+**** Docker Autocomplete
+     Highly recommended that you have docker [[https://docs.docker.com/compose/completion/][autocomplete]] 
+* Swarn basic
+  Created:<2020-01-09 Thu> 
+  This blog post will show you the way to create a multihost Networking with swarm 
+
+** Overlay Multihost Networking
+*** Create a network 
+    #+begin_center
+    docker network create --driver overlay mydrupal
+    #+end_center
+    This should lead to something like some like so:
+    #+begin_example
+      ╰─$ docker network ls                                                                                                                                                                                                                   
+      NETWORK ID          NAME                DRIVER              SCOPE
+      9607413c6e2d        docker_gwbridge     bridge              local
+      9efu12nons6t        ingress             overlay             swarm
+      a2n9knsfmj61        mydrupal            overlay             swarm
+    #+end_example
+    Notice the ~overlay~ driver
+*** Create a postgres service called psql 
+    #+begin_export bash
+    docker service create --name psql --network mydrupal -e POSTGRES_PASSWORD=mypass postgres
+    #+end_export
+    notice that you are attaching the container to the created networl `mydrupal` and setting the default postgres password
+    #+begin_example bash
+      ╰─$ docker service ls                                                                                                                                                                                                                   
+      ID                  NAME                MODE                REPLICAS            IMAGE               PORTS
+      luqhpaqeja10        psql                replicated          1/1                 postgres:latest     
+    #+end_example
+*** Crate a drupal service
+     #+begin_example bash
+    docker service create --name drupal -p 80:80 --network mydrupal drupal
+    #+end_example
+    notice that you are attaching the container to the created networl `mydrupal`, same as before.
+    Again after inspecting the docker services you will notice a +1
+    #+begin_verse
+    ╰─$  docker service ls 
+      ID                  NAME                MODE                REPLICAS            IMAGE               PORTS
+      kr91nl53k9me        drupal              replicated          1/1                 drupal:latest       *:80->80/tcp
+      b7cykndnl3no        psql                replicated          1/1                 postgres:latest     
+    #+end_verse
+    
+
+    
+#  LocalWords:  gwbridge efu knsfmj mydrupal postgres psql mypass Swarn ps
+
+* Footnotes
+
+[fn:1] Notice that you can get a bind error if that port is being already used by another application.
