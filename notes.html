@@ -6,9 +6,9 @@
 <style type="text/css">
 .underline { text-decoration: underline; }
 </style>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3.8.0/css/reveal.css"/>
+<link rel="stylesheet" href="./reveal.js/css/reveal.css"/>
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3.8.0/css/theme/black.css" id="theme"/>
+<link rel="stylesheet" href="./reveal.js/css/theme/black.css" id="theme"/>
 
 <!-- If the query includes 'print-pdf', include the PDF print sheet -->
 <script>
@@ -16,7 +16,7 @@
         var link = document.createElement( 'link' );
         link.rel = 'stylesheet';
         link.type = 'text/css';
-        link.href = 'https://cdn.jsdelivr.net/npm/reveal.js@3.8.0/css/print/pdf.css';
+        link.href = './reveal.js/css/print/pdf.css';
         document.getElementsByTagName( 'head' )[0].appendChild( link );
     }
 </script>
@@ -25,21 +25,33 @@
 <div class="reveal">
 <div class="slides">
 <section id="sec-title-slide">
-<h2 class="author">Esteban Marin</h2><p class="date">Created: 2020-01-09 Thu 17:56</p>
+<h2 class="author">Esteban Marin</h2><p class="date">Created: 2020-01-21 Tue 22:48</p>
 </section>
 <section id="table-of-contents-section">
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#/slide-1">1. The notes of Docker</a></li>
-<li><a href="#/slide-2">2. Section 8</a>
+<li><a href="#/slide-1">1. Why Study Docker?</a></li>
+<li><a href="#/slide-2">2. Docker Images&#xa0;&#xa0;&#xa0;<span class="tag"><span class="Docker">Docker</span></span></a>
 <ul>
-<li><a href="#/slide-2-1">2.1. Overlay Multihost Networking</a>
+<li><a href="#/slide-2-1">2.1. What is in this section?</a>
 <ul>
-<li><a href="#/slide-2-1-1">2.1.1. Create a network</a></li>
-<li><a href="#/slide-2-1-2">2.1.2. Create a postgres service called psql</a></li>
-<li><a href="#/slide-2-1-3">2.1.3. Crate a drupal service</a></li>
+<li><a href="#/slide-2-1-1">2.1.1. <span class="done DONE">DONE</span> check version of our Docker CLI and Engine</a></li>
+<li><a href="#/slide-2-1-2">2.1.2. <span class="todo TODO">TODO</span> create Nginx (web server) container</a></li>
+<li><a href="#/slide-2-1-3">2.1.3. <span class="todo TODO">TODO</span> Learn Docker networking basis</a></li>
+<li><a href="#/slide-2-1-4">2.1.4. requirements</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#/slide-3">3. Swarn basic</a>
+<ul>
+<li><a href="#/slide-3-1">3.1. Overlay Multihost Networking</a>
+<ul>
+<li><a href="#/slide-3-1-1">3.1.1. Create a network</a></li>
+<li><a href="#/slide-3-1-2">3.1.2. Create a postgres service called psql</a></li>
+<li><a href="#/slide-3-1-3">3.1.3. Crate a drupal service</a></li>
 </ul>
 </li>
 </ul>
@@ -50,32 +62,393 @@
 </section>
 <section>
 <section id="slide-1">
-<h2 id="1"><span class="section-number-2">1</span> The notes of Docker</h2>
+<h2 id="1"><span class="section-number-2">1</span> Why Study Docker?</h2>
 <p>
-This is very interesting - Note taken on <span class="timestamp-wrapper"><span class="timestamp">[2020-01-04 Sat 20:04] </span></span> <br />
- Mmm I can add notes over a text
+When ever I study something, I try to ask the following question: Why?
+Docker began as a open source project from a hosting company called <code>dotcloud</code>, that pivoted to Docker Inc.
+Docker is valuable in the fact that is leading an industry shift, moving away from managing servers, to containerazing your applications and deploying faster.
+The closer the developer is to the infrastructure, the faster quality product gets released.
+Not shifting to Docker will deprecate you as a developer, as cloud native app will be the standard in the web.
+It will also give you a bost in your career. 
 </p>
-<aside class="notes">
+<blockquote>
 <p>
-
+Docker is all about speed.
+Develop faster.
+Test faster.
+Deploy faster.
+Update faster.
+Recover faster.
+</p>
+</blockquote>
+<p>
+Docker reduces the complexity of managinig an application through several servers, operating systems, versions, ensuring consistency throughtout. 
+Why: Because it allows you to package, regardless of the system, it allows you to distribute regardless of the channel, it allows you to test and debug the same way everyone else does.
 </p>
 
-</aside>
 </section>
 </section>
 <section>
 <section id="slide-2">
-<h2 id="2"><span class="section-number-2">2</span> Section 8</h2>
+<h2 id="2"><span class="section-number-2">2</span> Docker Images&#xa0;&#xa0;&#xa0;<span class="tag"><span class="Docker">Docker</span></span></h2>
 <div class="outline-text-2" id="text-2">
 </div>
 </section>
 <section id="slide-2-1">
-<h3 id="2-1"><span class="section-number-3">2.1</span> Overlay Multihost Networking</h3>
+<h3 id="2-1"><span class="section-number-3">2.1</span> What is in this section?</h3>
 <div class="outline-text-3" id="text-2-1">
 </div>
 </section>
 <section id="slide-2-1-1">
-<h4 id="2-1-1"><span class="section-number-4">2.1.1</span> Create a network</h4>
+<h4 id="2-1-1"><span class="section-number-4">2.1.1</span> <span class="done DONE">DONE</span> check version of our Docker CLI and Engine</h4>
+<p>
+When running the following commands in the bash terminal:
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-shell">docker version
+</pre>
+</div>
+<p>
+You should get similar results:
+</p>
+<p>
+A lot of the information here is going to contain like number of containers
+</p>
+<pre class="example">
+..//
+Version:           19.03.5
+..//
+Server: Docker Engine - Community
+Engine:
+  Version:          19.03.5
+..//
+</pre>
+<p>
+At this point, this information useless, so lets move to other more insightful, you might wonder how many commands you have in Docker, well that can be queried fairly simple by typing:
+</p>
+<pre class="example">
+docker help
+</pre>
+<p>
+Immediately you get the format of the command:
+</p>
+<pre class="example">
+Usage:  docker [OPTIONS] COMMAND
+</pre>
+<p>
+See some interesting <code>COMMAND</code> 
+</p>
+<pre class="example">
+Management Commands:
+  builder     Manage builds
+  config      Manage Docker configs
+  container   Manage containers
+  context     Manage contexts
+  image       Manage images
+  network     Manage networks
+  node        Manage Swarm nodes
+  plugin      Manage plugins
+  secret      Manage Docker secrets
+  service     Manage services
+  stack       Manage Docker stacks
+  swarm       Manage Swarm
+  system      Manage Docker
+  trust       Manage trust on Docker images
+  volume      Manage volumes
+</pre>
+<p>
+With time you won't need to memorise the code, as you can query the help and go to the concept you are trying to build, and that is beautiful!
+Also, take into account that there are new way of running old commands, and you can run them either without worrying as Docker ensures backwards compatibility.
+</p>
+<pre class="example">
+docker container run
+docker run
+</pre>
+<p>
+As well the following produce the same results:
+</p>
+<ul>
+<li>docker container ls</li>
+<li>docker ps</li>
+
+</ul>
+</section>
+<section id="slide-2-1-2">
+<h4 id="2-1-2"><span class="section-number-4">2.1.2</span> <span class="todo TODO">TODO</span> create Nginx (web server) container</h4>
+<p>
+Lest review the difference between Images and Containers
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">images</th>
+<th scope="col" class="org-left">containers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">An Image is the application we want to run</td>
+<td class="org-left">It is a running instance of the image</td>
+</tr>
+
+<tr>
+<td class="org-left">We our images from registries (DockerHub)</td>
+<td class="org-left">You can have many containers based on the same image</td>
+</tr>
+</tbody>
+</table>
+<ol class="org-ol">
+<li><a id="2-1-2-1"></a>Creating and managing containers<br />
+<p>
+Here we will run the first command:
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-shell">docker container run --publish <span style="color: #d33682; font-weight: bold;">80:80</span> nginx
+</pre>
+</div>
+<p>
+Now go into your browser and type <code>localhost</code>. You will see a nginx welcome screen.
+Lets dissect the docker command 
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Command</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">docker</td>
+<td class="org-left">A self-sufficient runtime for containers</td>
+</tr>
+
+<tr>
+<td class="org-left">container</td>
+<td class="org-left">Manage containers</td>
+</tr>
+
+<tr>
+<td class="org-left">run</td>
+<td class="org-left">docker container run [OPTIONS] IMAGE [COMMAND] [ARG&#x2026;]</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">Flag</td>
+<td class="org-left">Description</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">&#x2013;publish</td>
+<td class="org-left">Publish a container's port(s) to ythe host</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">Image</td>
+<td class="org-left">Description</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">nginx:latest</td>
+<td class="org-left">Later version of official repo image with TAG:Latest</td>
+</tr>
+</tbody>
+</table>
+<p>
+The step by step process that happened:
+</p>
+<ol>
+<li>Downloaded the image nginx:latest from Docker Hub</li>
+<li>Started a new container from that image</li>
+<li>Opened port:80 on local host to application</li>
+<li>Routes that traffic to the container IP, port 80<sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup></li>
+
+</ol>
+<p>
+Lets now run the past command but with the detached flag like so:
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-shell">docker container run --publish <span style="color: #d33682; font-weight: bold;">80:80</span> --detach nginx
+</pre>
+</div>
+<p>
+This will throw a hashed number that when running
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-shell">docker container ls
+</pre>
+</div>
+<p>
+Will show the container running, in this case:
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Id</th>
+<th scope="col" class="org-left">Image</th>
+<th scope="col" class="org-left">Command</th>
+<th scope="col" class="org-right">Ports</th>
+<th scope="col" class="org-left">Names</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">671c3cc2e55b</td>
+<td class="org-left">nginx</td>
+<td class="org-left">"nginx -g 'daemon of…"</td>
+<td class="org-right">0.0.0.0:80</td>
+<td class="org-left">hardcore<sub>chandrasekhar</sub></td>
+</tr>
+</tbody>
+</table>
+<p>
+Remember that you can stop by
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-shell">docker container stop <span style="color: #d33682; font-weight: bold;">671c3cc2e55b</span>
+</pre>
+</div>
+<p>
+This case we needed the hash, we could also refer to the name, but by default is given randomly. However, we can change the name with the name flag
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-shell">docker container run --publish <span style="color: #d33682; font-weight: bold;">80:80</span> --detach --name=webhost nginx
+</pre>
+</div>
+<p>
+Once the container is up you can type 
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-shell">docker container logs webhost
+</pre>
+</div>
+<p>
+if the logs are empty, run a couple of refresh in localhost and then run the command above to she the logs.
+As well you can check what processes are running within your container, very useful for debugging.
+</p>
+<p>
+You can notice now that we have cluttered our environment with several container so lets run remove command 
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-shell">docker container rm -f webhost
+</pre>
+</div>
+<p>
+We are running the <code>f</code> flag in case the container is running.
+</p>
+</li>
+<li><a id="2-1-2-2"></a>Changing defaults<br />
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Command default</th>
+<th scope="col" class="org-left">Change</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">&#x2013;publish 80:80</td>
+<td class="org-left">&#x2013;publish 8080:80</td>
+<td class="org-left">Changes host listening port</td>
+</tr>
+
+<tr>
+<td class="org-left">nginx:latest</td>
+<td class="org-left">nginx:1.1</td>
+<td class="org-left">Changes latest version to 1.1</td>
+</tr>
+
+<tr>
+<td class="org-left">nginx:latest</td>
+<td class="org-left">nginx:latest -T</td>
+<td class="org-left">Change CMD on start</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ol>
+</section>
+<section id="slide-2-1-3">
+<h4 id="2-1-3"><span class="section-number-4">2.1.3</span> <span class="todo TODO">TODO</span> Learn Docker networking basis</h4>
+</section>
+<section id="slide-2-1-4">
+<h4 id="2-1-4"><span class="section-number-4">2.1.4</span> requirements</h4>
+<div class="outline-text-4" id="text-2-1-4">
+</div>
+<ol class="org-ol">
+<li><a id="2-1-4-1"></a>Docker Autocomplete<br />
+<p>
+Highly recommended that you have docker <a href="https://docs.docker.com/compose/completion/">autocomplete</a> 
+</p>
+</li>
+</ol>
+</section>
+</section>
+<section>
+<section id="slide-3">
+<h2 id="3"><span class="section-number-2">3</span> Swarn basic</h2>
+<p>
+Created:<span class="timestamp-wrapper"><span class="timestamp">&lt;2020-01-09 Thu&gt; </span></span> 
+This blog post will show you the way to create a multihost Networking with swarm 
+</p>
+
+</section>
+<section id="slide-3-1">
+<h3 id="3-1"><span class="section-number-3">3.1</span> Overlay Multihost Networking</h3>
+<div class="outline-text-3" id="text-3-1">
+</div>
+</section>
+<section id="slide-3-1-1">
+<h4 id="3-1-1"><span class="section-number-4">3.1.1</span> Create a network</h4>
 <div class="org-center">
 <p>
 docker network create &#x2013;driver overlay mydrupal
@@ -95,25 +468,36 @@ a2n9knsfmj61        mydrupal            overlay             swarm
 Notice the <code>overlay</code> driver
 </p>
 </section>
-<section id="slide-2-1-2">
-<h4 id="2-1-2"><span class="section-number-4">2.1.2</span> Create a postgres service called psql</h4>
+<section id="slide-3-1-2">
+<h4 id="3-1-2"><span class="section-number-4">3.1.2</span> Create a postgres service called psql</h4>
+<p>
+notice that you are attaching the container to the created networl `mydrupal` and setting the default postgres password
+</p>
 <pre class="example">
 ╰─$ docker service ls                                                                                                                                                                                                                   
 ID                  NAME                MODE                REPLICAS            IMAGE               PORTS
 luqhpaqeja10        psql                replicated          1/1                 postgres:latest     
 </pre>
 </section>
-<section id="slide-2-1-3">
-<h4 id="2-1-3"><span class="section-number-4">2.1.3</span> Crate a drupal service</h4>
+<section id="slide-3-1-3">
+<h4 id="3-1-3"><span class="section-number-4">3.1.3</span> Crate a drupal service</h4>
 <pre class="example">
 docker service create --name drupal -p 80:80 --network mydrupal drupal
 </pre>
-</section>
-</section>
+<p>
+notice that you are attaching the container to the created networl `mydrupal`, same as before.
+Again after inspecting the docker services you will notice a +1
+</p>
+<p class="verse">
+╰─$  docker service ls<br />
+&#xa0;&#xa0;ID                  NAME                MODE                REPLICAS            IMAGE               PORTS<br />
+&#xa0;&#xa0;kr91nl53k9me        drupal              replicated          1/1                 drupal:latest       *:80-&gt;80/tcp<br />
+&#xa0;&#xa0;b7cykndnl3no        psql                replicated          1/1                 postgres:latest<br />
+</p>
 </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/reveal.js@3.8.0/lib/js/head.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/reveal.js@3.8.0/js/reveal.js"></script>
+<script src="./reveal.js/lib/js/head.min.js"></script>
+<script src="./reveal.js/js/reveal.js"></script>
 <script>
 // Full list of configuration options available here:
 // https://github.com/hakimel/reveal.js#configuration
@@ -139,11 +523,11 @@ transitionSpeed: 'default',
 
 // Optional libraries used to extend reveal.js
 dependencies: [
- { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.8.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
- { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.8.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
- { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.8.0/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
- { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.8.0/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } },
- { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.8.0/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } }]
+ { src: './reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: './reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: './reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: './reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: './reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } }]
 
 });
 </script>

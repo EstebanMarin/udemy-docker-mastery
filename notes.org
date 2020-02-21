@@ -1,4 +1,3 @@
-#tree macs-lock-width t+REVEAL_ROOT: https://cdn.jsdelivr.net/npm/reveal.js@3.8.0
 * Why Study Docker?
   :PROPERTIES:
   :ID:       1BC71C7F-A277-4E59-B7B9-1B07C9C48F8B
